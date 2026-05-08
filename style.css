@@ -1,8 +1,3 @@
-/*@font-face {
-    font-family: Ghastly Panic;
-    src: url(./Ghastly\ Panic.ttf);
-}*/
-
 *{
     margin:0%;
     padding:0%;
@@ -13,19 +8,15 @@ html,body{
     height: 100%;
     width: 100%;
 }
+body{
+    position: relative;
+}
 div{
-    height: 100%;
-    width: 100%;
-    background-image: url(https://4kwallpapers.com/images/walls/thumbs_3t/25021.jpg);
-    background-size: cover;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-}
-h1{
-    text-align: center;
-    color: aqua;
-}
-p{
-    text-align: right;
-    color: white;
+    width: 200px;
+    height: 200px;
+    background-color: antiquewhite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
