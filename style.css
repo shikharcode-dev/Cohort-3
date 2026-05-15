@@ -23,3 +23,19 @@ nav{
     display: flex;
     gap: 35px;
 }
+h5{
+    font-size: 25px;
+    display: none;
+}
+@media (max-width: 550px) {
+    h5{
+        display: block;
+    }
+
+    h4{
+        display: none;
+    }
+    nav{
+        background-color: aquamarine;
+    }
+}
