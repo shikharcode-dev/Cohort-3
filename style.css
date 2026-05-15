@@ -8,34 +8,32 @@ html,body{
     height: 100%;
     width: 100%;
 }
-nav{
-    height: 60px;
-    width: 100%;
-    padding: 0 30px;
-    background-color: rgb(220, 173, 230);
+.box{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    background-color: salmon;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    animation-name: anime;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
 }
 
-.part2{
-    display: flex;
-    gap: 35px;
-}
-h5{
-    font-size: 25px;
-    display: none;
-}
-@media (max-width: 550px) {
-    h5{
-        display: block;
+@keyframes anime {
+    from{
+        left: 0;
+        rotate: 0;
+        border-radius: 0;
+        background-color: aqua;
     }
-
-    h4{
-        display: none;
-    }
-    nav{
-        background-color: aquamarine;
+    to{
+        left: 70%;
+        rotate: 360deg;
+        border-radius: 50%;
+        background-color: rgb(255, 127, 227);
     }
 }
