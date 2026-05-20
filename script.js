@@ -1,12 +1,21 @@
-var maths = Number(prompt("Enter maths marks: "))
-var physics = Number(prompt("Enter physics marks: "))
-var chemistry = Number(prompt("Enter chemistry marks: "))
+let marks = Number(prompt("Enter a marks: "));
+let grade;
 
-var totalMarks = (maths + physics + chemistry) / 3
-console.log(totalMarks);
-
-if(totalMarks >= 85){
-    console.log("scollarship allowed")
-} else{
-    console.log("scollarship not allowed")
+switch (true) {
+  case (marks >= 90):
+    grade = 'A';
+    break;
+  case (marks >= 80):
+    grade = 'B';
+    break;
+  case (marks >= 70):
+    grade = 'C';
+    break;
+  case (marks >= 40):
+    grade = 'Pass';
+    break;
+  default:
+    grade = 'Fail';
 }
+
+console.log(`Grade: ${grade}`);
