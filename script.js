@@ -1,21 +1,9 @@
-let marks = Number(prompt("Enter a marks: "));
-let grade;
+// loops start
 
-switch (true) {
-  case (marks >= 90):
-    grade = 'A';
-    break;
-  case (marks >= 80):
-    grade = 'B';
-    break;
-  case (marks >= 70):
-    grade = 'C';
-    break;
-  case (marks >= 40):
-    grade = 'Pass';
-    break;
-  default:
-    grade = 'Fail';
+num = Number(prompt("Enter a num: "))
+
+let a = 1
+while (a <= 10) {
+  console.log(num*a)
+  a++
 }
-
-console.log(`Grade: ${grade}`);
