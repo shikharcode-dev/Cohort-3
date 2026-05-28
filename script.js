@@ -217,6 +217,30 @@
 
 
 
+// MAP METHOD NOTES:
+// The map() method creates a NEW array by transforming each element of the original array.
+// It applies a function to every element and returns the results in a new array.
+// The original array remains unchanged.
+//
+// SYNTAX: array.map(function(element) { return transformedElement })
+//
+// HOW THIS EXAMPLE WORKS:
+// Original array: [1, 2, 3, 4, 5]
+// Function: multiply each element by 2
+// Step by step:
+// - 1 * 2 = 2
+// - 2 * 2 = 4  
+// - 3 * 2 = 6
+// - 4 * 2 = 8
+// - 5 * 2 = 10
+// Result: [2, 4, 6, 8, 10]
+//
+// KEY POINTS:
+// - Always returns a new array
+// - New array has the same length as original
+// - Original array is not modified
+// - Use when you want to transform/modify each element
+
 // using of map, filter, reduce
 var arr = [1, 2, 3, 4, 5]
 
@@ -225,3 +249,72 @@ var mappedArr = arr.map(function(item) {
     return item * 2 // Example: multiplying each element by 2
 })
 console.log(mappedArr) // Output: [2, 4, 6, 8, 10]
+
+// FILTER METHOD NOTES:
+// The filter() method creates a NEW array with only the elements that pass a test.
+// It checks each element against a condition and keeps only those that return true.
+// The original array remains unchanged.
+//
+// SYNTAX: array.filter(function(element) { return condition })
+//
+// HOW THIS EXAMPLE WORKS:
+// Original array: [1, 2, 3, 4, 5]
+// Condition: check if element is even (element % 2 === 0)
+// Step by step:
+// - 1 % 2 === 0? → false (1 is odd) → not included
+// - 2 % 2 === 0? → true (2 is even) → included
+// - 3 % 2 === 0? → false (3 is odd) → not included
+// - 4 % 2 === 0? → true (4 is even) → included
+// - 5 % 2 === 0? → false (5 is odd) → not included
+// Result: [2, 4]
+//
+// KEY POINTS:
+// - Always returns a new array
+// - New array length can be smaller than original
+// - Original array is not modified
+// - Use when you want to select/filter elements based on a condition
+
+// filter - creates a new array with all elements that pass the test implemented by the provided function
+var filteredArr = arr.filter(function(item) {
+    return item % 2 === 0 // Example: filtering out even numbers
+})
+console.log(filteredArr) // Output: [2, 4]
+
+
+
+// REDUCE METHOD NOTES:
+// The reduce() method executes a reducer function on each element of the array, resulting in a single output value.
+// It's used to "reduce" an array to a single value by applying a function cumulatively to the elements.
+// 
+// SYNTAX: array.reduce(callback(accumulator, currentValue, currentIndex, array), initialValue)
+// - callback: Function to execute on each element
+// - accumulator: The accumulated value previously returned in the last invocation of the callback
+// - currentValue: The current element being processed in the array
+// - initialValue (optional): Value to use as the first argument to the first call of the callback
+//
+// HOW THIS EXAMPLE WORKS STEP BY STEP:
+// Array: [1, 2, 3, 4, 5]
+// Initial accumulator value: 0
+//
+// Iteration 1: accumulator = 0, currentValue = 1 → return 0 + 1 = 1
+// Iteration 2: accumulator = 1, currentValue = 2 → return 1 + 2 = 3  
+// Iteration 3: accumulator = 3, currentValue = 3 → return 3 + 3 = 6
+// Iteration 4: accumulator = 6, currentValue = 4 → return 6 + 4 = 10
+// Iteration 5: accumulator = 10, currentValue = 5 → return 10 + 5 = 15
+// Final result: 15
+//
+// ACCUMULATOR EXPLANATION:
+// The accumulator is like a "running total" or "memory" that carries the result from one iteration to the next.
+// It starts with the initialValue (0 in this case) and gets updated with the return value of each callback execution.
+//
+// CURRENTVALUE EXPLANATION:
+// The currentValue is simply the current array element being processed in each iteration.
+// It goes through each element of the array one by one: 1, then 2, then 3, then 4, then 5.
+
+// reduce - executes a reducer function on each element of the array, resulting in a single output value
+var a = [1, 2, 3, 4, 5]
+var reducedValue = a.reduce(function(accumulator, currentValue) {
+    return accumulator + currentValue // Example: summing all elements
+}, 0) // Initial value of the accumulator is 0
+
+console.log(reducedValue) // Output: 15
