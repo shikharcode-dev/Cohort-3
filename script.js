@@ -318,3 +318,4 @@ var reducedValue = a.reduce(function(accumulator, currentValue) {
 }, 0) // Initial value of the accumulator is 0
 
 console.log(reducedValue) // Output: 15
+
