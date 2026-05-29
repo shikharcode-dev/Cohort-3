@@ -319,3 +319,25 @@ var reducedValue = a.reduce(function(accumulator, currentValue) {
 
 console.log(reducedValue) // Output: 15
 
+// Q. how we seal or freeze an array in JavaScript? Give an example of each method and explain the difference between them.
+
+// ANSWER:
+// In JavaScript, you can use Object.freeze() to freeze an array, which prevents any modifications to the array (no adding, removing, or changing elements). 
+// Object.seal() allows you to modify existing elements but prevents adding or removing elements from the array.
+
+// Example of Object.freeze():
+var frozenArray = [1, 2, 3]
+Object.freeze(frozenArray)
+frozenArray[0] = 10 // This will not change the array
+frozenArray.push(4) // This will throw an error in strict mode
+console.log(frozenArray) // Output: [1, 2, 3]   
+
+// Example of Object.seal():
+var sealedArray = [1, 2, 3]
+Object.seal(sealedArray)
+sealedArray[0] = 10 // This will change the existing element
+sealedArray.push(4) // This will throw an error in strict mode (cannot add new elements)
+console.log(sealedArray) // Output: [10, 2, 3] (first element modified, but no new elements added)
+
+// the main difference between Object.freeze() and Object.seal() is that freeze prevents any changes to the array, while seal allows modifications to existing elements but prevents adding or removing elements.
+
