@@ -1,1370 +1,647 @@
-// Advance JS
-// TYPES OF ERRORS IN JAVASCRIPT - Easy Guide with Examples
+// OOPs in JS
 
-// 1. SYNTAX ERROR
-// What it is: Mistakes in writing code that break JavaScript rules
-// When it happens: Before code runs, during parsing
-// Example:
-// console.log("Hello World"  // Missing closing parenthesis - SYNTAX ERROR!
-// Fix: console.log("Hello World");
+// OBJECT-ORIENTED PROGRAMMING (OOP) IN JAVASCRIPT
+// OOP is a programming paradigm based on the concept of "objects"
+// Objects contain data (properties) and code (methods)
+// Main concepts: Encapsulation, Inheritance, Polymorphism, Abstraction
 
-// 2. REFERENCE ERROR  
-// What it is: Trying to use a variable that doesn't exist
-// When it happens: During code execution
-// Example:
-console.log(myName); // myName is not defined - REFERENCE ERROR!
-// Fix: First declare the variable: let myName = "John";
+// CONSTRUCTOR
+// A constructor is a special function used to create and initialize objects
+// It acts as a blueprint for creating multiple objects with similar properties
+// In JS, constructors are regular functions called with the 'new' keyword
 
-// 3. TYPE ERROR
-// What it is: Using wrong data type for an operation
-// When it happens: During code execution
-// Example:
-let number = 5;
-number.toUpperCase(); // Numbers don't have toUpperCase method - TYPE ERROR!
-// Fix: Use correct method: let text = "hello"; text.toUpperCase();
-
-// 4. RANGE ERROR
-// What it is: Using a number outside allowed range
-// When it happens: During code execution  
-// Example:
-let arr = new Array(-1); // Array size cannot be negative - RANGE ERROR!
-// Fix: Use positive number: let arr = new Array(5);
-
-// 5. URI ERROR
-// What it is: Wrong format in web address functions
-// When it happens: During code execution
-// Example:
-decodeURIComponent('%'); // Invalid URI format - URI ERROR!
-// Fix: Use proper format: decodeURIComponent('%20');
-
-// 6. EVAL ERROR (Rare)
-// What it is: Problems with eval() function
-// When it happens: During code execution
-// Note: Modern JavaScript rarely throws this error
-
-// HOW TO HANDLE ERRORS - TRY-CATCH
-// Use try-catch to prevent errors from breaking your program
-try {
-    // Code that might cause error
-    let result = riskyFunction();
-    console.log(result);
-} catch (error) {
-    // What to do if error happens
-    console.log("Oops! Something went wrong:", error.message);
-} finally {
-    // This always runs, error or no error
-    console.log("Cleanup code here");
-}
-
-// THROWING CUSTOM ERRORS
-// You can create your own error messages
-function checkAge(age) {
-    if (age < 0) {
-        throw new Error("Age cannot be negative!");
-    }
-    if (age > 150) {
-        throw new Error("Age seems too high!");
-    }
-    return "Valid age";
-}
-
-// COMMON ERROR PROPERTIES
-// error.name - Type of error (like "TypeError")
-// error.message - Description of what went wrong
-// error.stack - Shows where error happened in code
-
-// TIPS TO AVOID ERRORS:
-// 1. Always declare variables before using them
-// 2. Check data types before operations
-// 3. Use try-catch for risky operations
-// 4. Test your code with different inputs
-// 5. Use console.log() to debug step by step
-
-
-
-
-
-
-// STRICT MODE IN JAVASCRIPT - Easy Guide with Examples
-
-// What is Strict Mode?
-// Strict mode is a way to make JavaScript more strict and catch common mistakes
-// It helps you write better, safer code by throwing errors for things that would normally be ignored
-
-// HOW TO ENABLE STRICT MODE
-
-// Method 1: For entire script (put at very top of file)
-"use strict";
-
-// Method 2: For specific function only
-function myFunction() {
-    "use strict";
-    // strict mode only applies inside this function
-}
-
-// WHAT STRICT MODE DOES - EXAMPLES
-
-// 1. PREVENTS CREATING VARIABLES WITHOUT DECLARATION
-// Without strict mode: Creates global variable (bad!)
-// myName = "John"; // This would work but create problems
-
-// With strict mode: Throws ReferenceError
-try {
-    myAge = 25; // ERROR! Must use let, const, or var
-} catch (error) {
-    console.log("Error:", error.message); // "myAge is not defined"
-}
-// Fix: let myAge = 25;
-
-// 2. PREVENTS DUPLICATE PARAMETER NAMES
-// Without strict mode: Last parameter wins (confusing!)
-// With strict mode: Throws SyntaxError
-// function badFunction(a, a) { // ERROR in strict mode!
-//     return a;
-// }
-// Fix: Use different parameter names
-function goodFunction(a, b) {
-    return a + b;
-}
-
-// 3. PREVENTS DELETING VARIABLES
-// Without strict mode: Silently fails
-// With strict mode: Throws SyntaxError
-let myVar = "test";
-try {
-    // delete myVar; // ERROR! Cannot delete variables
-} catch (error) {
-    console.log("Cannot delete variables in strict mode");
-}
-
-// 4. PREVENTS USING RESERVED WORDS AS VARIABLES
-// These words are reserved for future JavaScript features
-// let let = 5;        // ERROR!
-// let class = "test"; // ERROR!
-// let static = true;  // ERROR!
-
-// 5. MAKES 'this' UNDEFINED IN FUNCTIONS (not window object)
-function regularFunction() {
-    "use strict";
-    console.log(this); // undefined (safer!)
-}
-// Without strict mode, 'this' would be the window object (dangerous!)
-
-// 6. PREVENTS OCTAL NUMBERS (numbers starting with 0)
-// Without strict mode: 010 = 8 (confusing!)
-// With strict mode: Throws SyntaxError
-try {
-    // let octalNumber = 010; // ERROR! Octal not allowed
-} catch (error) {
-    console.log("Octal numbers not allowed in strict mode");
-}
-// Fix: Use decimal: let number = 8; or hex: let number = 0x8;
-
-// 7. PREVENTS WRITING TO READ-ONLY PROPERTIES
-try {
-    "use strict";
-    let obj = {};
-    Object.defineProperty(obj, "readOnly", {
-        value: "cannot change",
-        writable: false
-    });
-    // obj.readOnly = "new value"; // ERROR! Cannot write to read-only property
-} catch (error) {
-    console.log("Cannot modify read-only property");
-}
-
-// PRACTICAL EXAMPLE - COMPARING WITH AND WITHOUT STRICT MODE
-
-// Without strict mode (problems can hide)
-function withoutStrict() {
-    mistakeVariable = "oops"; // Creates global variable accidentally
-    return mistakeVariable;
-}
-
-// With strict mode (catches mistakes early)
-function withStrict() {
-    "use strict";
-    try {
-        // mistakeVariable = "oops"; // Would throw ReferenceError
-        let properVariable = "correct"; // Proper way
-        return properVariable;
-    } catch (error) {
-        return "Error caught: " + error.message;
-    }
-}
-
-// BENEFITS OF USING STRICT MODE:
-// 1. Catches common coding mistakes early
-// 2. Prevents accidentally creating global variables
-// 3. Makes debugging easier
-// 4. Improves performance (JavaScript engines can optimize better)
-// 5. Prepares your code for future JavaScript versions
-
-// WHEN TO USE STRICT MODE:
-// - Always use it in new projects
-// - Use it in functions when updating old code
-// - Modern JavaScript (ES6+) modules automatically use strict mode
-
-// HOW TO ADD TO EXISTING CODE SAFELY:
-function safeStrictMode() {
-    "use strict";
-    // Add strict mode gradually to individual functions
-    // Test thoroughly before applying to entire file
-    let safeVariable = "properly declared";
-    return safeVariable;
-}
-
-console.log("Strict mode helps you write better JavaScript!");
-console.log(withStrict());
-
-
-
-
-
-
-// THE 'this' KEYWORD IN JAVASCRIPT - Complete Easy Guide
-
-// What is 'this'?
-// 'this' is a special keyword that refers to an object
-// The object it refers to depends on HOW and WHERE the function is called
-
-// 1. GLOBAL CONTEXT (outside any function)
-// In browser: 'this' refers to window object
-// In Node.js: 'this' refers to global object
-console.log(this); // In browser: window object
-
-// 2. REGULAR FUNCTION CALLS
-// Without strict mode: 'this' refers to window/global object
-// With strict mode: 'this' is undefined
-
-function regularFunction() {
-    console.log(this); // window object (or undefined in strict mode)
-}
-regularFunction();
-
-function strictFunction() {
-    "use strict";
-    console.log(this); // undefined
-}
-strictFunction();
-
-// 3. OBJECT METHODS
-// When function is called as object method, 'this' refers to that object
-const person = {
-    name: "John",
-    age: 30,
-    greet: function() {
-        console.log(this); // refers to 'person' object
-        console.log("Hi, I'm " + this.name); // "Hi, I'm John"
-        console.log("I'm " + this.age + " years old"); // "I'm 30 years old"
-    }
-};
-person.greet(); // 'this' = person object
-
-// 4. ARROW FUNCTIONS - SPECIAL BEHAVIOR
-// Arrow functions DON'T have their own 'this'
-// They inherit 'this' from surrounding scope
-const car = {
-    brand: "Toyota",
-    model: "Camry",
-    
-    // Regular function - has its own 'this'
-    getInfo: function() {
-        console.log(this.brand); // "Toyota" - 'this' refers to car object
-        
-        // Arrow function inside - inherits 'this' from getInfo
-        const getFullName = () => {
-            console.log(this.brand + " " + this.model); // "Toyota Camry"
-        };
-        getFullName();
-    },
-    
-    // Arrow function as method - 'this' refers to global object (not car!)
-    getBrand: () => {
-        console.log(this.brand); // undefined (or window.brand)
-    }
-};
-car.getInfo(); // Works correctly
-car.getBrand(); // Doesn't work as expected!
-
-// 5. CONSTRUCTOR FUNCTIONS
-// When using 'new' keyword, 'this' refers to the new object being created
+// SIMPLE EXAMPLE OF CONSTRUCTOR
+// Creating a Person constructor
 function Person(name, age) {
-    this.name = name; // 'this' refers to new object
+    this.name = name;  // 'this' refers to the new object being created
     this.age = age;
-    this.sayHello = function() {
-        console.log("Hello, I'm " + this.name); // 'this' refers to the instance
+    this.greet = function() {
+        console.log("Hello, I'm " + this.name);
     };
 }
 
-const john = new Person("John", 25);
-const mary = new Person("Mary", 30);
-john.sayHello(); // "Hello, I'm John"
-mary.sayHello(); // "Hello, I'm Mary"
+// Creating objects using the constructor
+const person1 = new Person("John", 25);
+const person2 = new Person("Sarah", 30);
 
-// 6. EVENT HANDLERS
-// In event handlers, 'this' refers to the element that triggered the event
-// Example: <button id="myButton">Click me</button>
-/*
-document.getElementById("myButton").addEventListener("click", function() {
-    console.log(this); // refers to the button element
-    this.style.color = "red"; // changes button text color to red
-});
-*/
+// Using the objects
+person1.greet();  // Output: Hello, I'm John
+console.log(person2.age);  // Output: 30
 
-// 7. CALL, APPLY, AND BIND METHODS
-// These methods let you manually set what 'this' refers to
+// SHORT NOTES:
+// 1. Constructor function names start with capital letter (convention)
+// 2. Use 'new' keyword to create objects from constructor
+// 3. 'this' keyword refers to the object being created
+// 4. Each object created is independent with its own properties
+// 5. Modern JS also uses 'class' syntax (ES6) as alternative to constructor functions
 
-const student = {
-    name: "Alice",
-    grade: "A"
-};
 
-const teacher = {
-    name: "Mr. Smith",
-    subject: "Math"
-};
 
-function introduce() {
-    console.log("Hi, I'm " + this.name);
-}
+// SPOTIFY-LIKE APP EXAMPLE USING CONSTRUCTORS
 
-// call() - calls function immediately with specified 'this'
-introduce.call(student); // "Hi, I'm Alice"
-introduce.call(teacher); // "Hi, I'm Mr. Smith"
-
-// apply() - same as call() but takes arguments as array
-function greetWithGrade(greeting, punctuation) {
-    console.log(greeting + " I'm " + this.name + " and I got " + this.grade + punctuation);
-}
-greetWithGrade.apply(student, ["Hello,", "!"]); // "Hello, I'm Alice and I got A!"
-
-// bind() - creates new function with specified 'this' (doesn't call immediately)
-const boundFunction = introduce.bind(student);
-boundFunction(); // "Hi, I'm Alice"
-
-// 8. CLASS METHODS
-// In classes, 'this' refers to the instance of the class
-class Animal {
-    constructor(name, type) {
-        this.name = name; // 'this' refers to the instance
-        this.type = type;
-    }
+// Constructor for creating Song objects
+// This acts as a blueprint for all songs in our app
+function Song(title, artist, duration, genre) {
+    this.title = title;        // Song name
+    this.artist = artist;      // Artist name
+    this.duration = duration;  // Duration in minutes (e.g., "3:45")
+    this.genre = genre;        // Music genre (e.g., "Pop", "Rock")
+    this.isPlaying = false;    // Track if song is currently playing
     
-    speak() {
-        console.log(this.name + " the " + this.type + " makes a sound");
-    }
-    
-    // Arrow function in class - inherits 'this' from class instance
-    getInfo = () => {
-        console.log("This is " + this.name);
-    }
-}
-
-const dog = new Animal("Buddy", "dog");
-dog.speak(); // "Buddy the dog makes a sound"
-dog.getInfo(); // "This is Buddy"
-
-// 9. COMMON MISTAKES AND SOLUTIONS
-
-// Mistake 1: Losing 'this' context when passing methods
-const calculator = {
-    value: 0,
-    add: function(num) {
-        this.value += num;
-        console.log("Current value: " + this.value);
-    }
-};
-
-// This loses context - 'this' becomes undefined or global object
-const addFunction = calculator.add;
-// addFunction(5); // Error! 'this' is not calculator object
-
-// Solution 1: Use bind()
-const boundAdd = calculator.add.bind(calculator);
-boundAdd(5); // Works! "Current value: 5"
-
-// Solution 2: Use arrow function wrapper
-const wrappedAdd = (num) => calculator.add(num);
-wrappedAdd(3); // Works! "Current value: 8"
-
-// Mistake 2: 'this' in nested functions
-const counter = {
-    count: 0,
-    start: function() {
-        // 'this' refers to counter object here
-        console.log("Starting count: " + this.count);
-        
-        // Problem: 'this' in setTimeout refers to global object
-        setTimeout(function() {
-            this.count++; // This doesn't work! 'this' is not counter
-            console.log("Count: " + this.count); // undefined or NaN
-        }, 1000);
-    }
-};
-
-// Solution: Use arrow function or bind
-const betterCounter = {
-    count: 0,
-    start: function() {
-        console.log("Starting count: " + this.count);
-        
-        // Arrow function inherits 'this' from start method
-        setTimeout(() => {
-            this.count++; // Works! 'this' refers to betterCounter
-            console.log("Count: " + this.count);
-        }, 1000);
-    }
-};
-
-// 10. PRACTICAL EXAMPLES
-
-// Example 1: Simple object with methods
-const bankAccount = {
-    balance: 1000,
-    accountNumber: "12345",
-    
-    deposit: function(amount) {
-        this.balance += amount; // 'this' refers to bankAccount
-        console.log("Deposited $" + amount + ". New balance: $" + this.balance);
-    },
-    
-    withdraw: function(amount) {
-        if (amount <= this.balance) {
-            this.balance -= amount;
-            console.log("Withdrew $" + amount + ". New balance: $" + this.balance);
-        } else {
-            console.log("Insufficient funds!");
-        }
-    },
-    
-    getBalance: function() {
-        return this.balance; // 'this' refers to bankAccount
-    }
-};
-
-bankAccount.deposit(200); // "Deposited $200. New balance: $1200"
-bankAccount.withdraw(300); // "Withdrew $300. New balance: $900"
-
-// Example 2: Constructor function for multiple objects
-function Book(title, author, pages) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = false;
-    
-    this.markAsRead = function() {
-        this.isRead = true;
-        console.log("'" + this.title + "' has been marked as read");
+    // Method to play the song
+    this.play = function() {
+        this.isPlaying = true;
+        console.log("🎵 Now playing: " + this.title + " by " + this.artist);
     };
     
+    // Method to pause the song
+    this.pause = function() {
+        this.isPlaying = false;
+        console.log("⏸️ Paused: " + this.title);
+    };
+    
+    // Method to display song information
     this.getInfo = function() {
-        const status = this.isRead ? "read" : "not read";
-        console.log("'" + this.title + "' by " + this.author + " (" + this.pages + " pages) - " + status);
+        console.log("Song: " + this.title);
+        console.log("Artist: " + this.artist);
+        console.log("Duration: " + this.duration);
+        console.log("Genre: " + this.genre);
     };
 }
 
-const book1 = new Book("Harry Potter", "J.K. Rowling", 300);
-const book2 = new Book("Lord of the Rings", "J.R.R. Tolkien", 500);
+// CREATING SONGS USING THE SONG CONSTRUCTOR
+const song1 = new Song("Blinding Lights", "The Weeknd", "3:20", "Pop");
+const song2 = new Song("Shape of You", "Ed Sheeran", "3:53", "Pop");
 
-book1.getInfo(); // "'Harry Potter' by J.K. Rowling (300 pages) - not read"
-book1.markAsRead(); // "'Harry Potter' has been marked as read"
-book1.getInfo(); // "'Harry Potter' by J.K. Rowling (300 pages) - read"
+// USING THE SONG OBJECTS
+console.log("\n=== TESTING SONGS ===");
+song1.getInfo();  // Display song information
+song1.play();     // Play the song
+song1.pause();    // Pause the song
 
-// SUMMARY - SIMPLE RULES TO REMEMBER:
-// 1. In object methods: 'this' = the object
-// 2. In regular functions: 'this' = global object (or undefined in strict mode)
-// 3. In arrow functions: 'this' = inherited from surrounding scope
-// 4. In constructors: 'this' = the new object being created
-// 5. In event handlers: 'this' = the element that triggered the event
-// 6. You can control 'this' with call(), apply(), and bind()
+song2.play();     // Play another song
 
-console.log("Understanding 'this' takes practice, but these rules will help!");
-
-
-
+// EXPLANATION:
+// 1. Song Constructor: Creates song objects with properties (title, artist, etc.) and methods (play, pause, getInfo)
+// 2. We create song objects using 'new Song()'
+// 3. Each object is independent and has its own data
+// 4. This shows how constructors work as blueprints for creating multiple similar objects
 
 
 
+// CLASSES IN JAVASCRIPT (ES6)
+// A class is a modern way to create objects in JavaScript
+// It's like a blueprint or template for creating objects
+// Classes are easier to read and write than constructor functions
+// They do the same thing as constructors but with cleaner syntax
 
-
-
-
-// CALL, BIND, APPLY - Easy Explanation with Examples
-
-// These methods let you control what 'this' refers to in functions
-
-// Setup: A function and some objects to work with
-function introduce(greeting, punctuation) {
-    return greeting + " I'm " + this.name + " and I'm " + this.age + " years old" + punctuation;
-}
-
-const person1 = { name: "John", age: 25 };
-const person2 = { name: "Sarah", age: 30 };
-
-// 1. CALL() - Calls function immediately, sets 'this', passes arguments one by one
-console.log(introduce.call(person1, "Hello,", "!")); 
-// Output: "Hello, I'm John and I'm 25 years old!"
-
-console.log(introduce.call(person2, "Hi,", ".")); 
-// Output: "Hi, I'm Sarah and I'm 30 years old."
-
-// 2. APPLY() - Same as call() but arguments go in an array
-console.log(introduce.apply(person1, ["Hey,", "!!!"])); 
-// Output: "Hey, I'm John and I'm 25 years old!!!"
-
-console.log(introduce.apply(person2, ["Greetings,", "."])); 
-// Output: "Greetings, I'm Sarah and I'm 30 years old."
-
-// 3. BIND() - Creates a new function with 'this' set, doesn't call immediately
-const johnIntroduce = introduce.bind(person1);
-console.log(johnIntroduce("Welcome,", "!")); 
-// Output: "Welcome, I'm John and I'm 25 years old!"
-
-const sarahIntroduce = introduce.bind(person2, "Hello,"); // Can pre-fill some arguments
-console.log(sarahIntroduce(".")); 
-// Output: "Hello, I'm Sarah and I'm 30 years old."
-
-// SIMPLE MEMORY TRICK:
-// CALL = Call immediately, Comma-separated arguments
-// APPLY = Apply immediately, Array of arguments  
-// BIND = Bind and save for later, returns new function
-
-// PRACTICAL EXAMPLE - Borrowing methods
-const calculator1 = {
-    value: 10,
-    multiply: function(num) {
-        this.value *= num;
-        return this.value;
+// BASIC CLASS SYNTAX
+class Animal {
+    // constructor method runs when we create a new object
+    constructor(name, sound) {
+        this.name = name;   // property
+        this.sound = sound; // property
     }
-};
-
-const calculator2 = { value: 5 };
-
-// Borrow multiply method from calculator1 and use it on calculator2
-console.log(calculator1.multiply.call(calculator2, 3)); // 15 (calculator2.value becomes 15)
-console.log(calculator1.multiply.apply(calculator2, [2])); // 30 (calculator2.value becomes 30)
-
-const boundMultiply = calculator1.multiply.bind(calculator2);
-console.log(boundMultiply(4)); // 120 (calculator2.value becomes 120)
-
-
-
-
-
-
-
-// PROTOTYPE AND PROTOTYPE CHAINING IN JAVASCRIPT - Complete Easy Guide
-
-// WHAT IS PROTOTYPE?
-// Every function in JavaScript has a 'prototype' property
-// Every object in JavaScript has a '__proto__' property (also called [[Prototype]])
-// Think of prototype as a "blueprint" or "template" that objects can inherit from
-
-// 1. UNDERSTANDING PROTOTYPE PROPERTY
-// When you create a function, JavaScript automatically gives it a 'prototype' property
-function Person() {
-    // This is a constructor function
+    
+    // method (function inside a class)
+    makeSound() {
+        console.log(this.name + " says " + this.sound);
+    }
 }
 
-console.log(Person.prototype); // This is an object that exists automatically
-console.log(typeof Person.prototype); // "object"
+// Creating objects from the class
+const dog = new Animal("Dog", "Woof");
+const cat = new Animal("Cat", "Meow");
 
-// You can add properties and methods to the prototype
-Person.prototype.species = "Homo sapiens";
-Person.prototype.walk = function() {
-    console.log("Walking on two legs");
-};
+// Using the objects
+dog.makeSound();  // Output: Dog says Woof
+cat.makeSound();  // Output: Cat says Meow
 
-// 2. UNDERSTANDING __proto__ PROPERTY
-// Every object has __proto__ which points to its prototype
-const john = new Person();
-console.log(john.__proto__); // Points to Person.prototype
-console.log(john.__proto__ === Person.prototype); // true
+// KEY POINTS ABOUT CLASSES:
+// 1. Use 'class' keyword to create a class
+// 2. constructor() method is special - it runs automatically when creating new object
+// 3. Methods are written without 'function' keyword
+// 4. Use 'new' keyword to create objects from class
+// 5. Classes make code cleaner and easier to understand
 
-// john can access properties from Person.prototype through __proto__
-console.log(john.species); // "Homo sapiens" - inherited from prototype
-john.walk(); // "Walking on two legs" - inherited from prototype
 
-// 3. SIMPLE ANALOGY - THINK OF IT LIKE A FAMILY TREE
-// Person.prototype = The "family traits" (like eye color, height genes)
-// john.__proto__ = john's connection to his family traits
-// john can use family traits even though he doesn't own them directly
 
-// 4. DETAILED EXAMPLE - CREATING A CAR BLUEPRINT
-function Car(brand, model) {
-    // These are instance properties (each car has its own)
-    this.brand = brand;
-    this.model = model;
-    this.isRunning = false;
+
+// SPOTIFY-LIKE APP EXAMPLE USING CLASSES
+
+// Class for creating Song objects
+// This is the same as our previous constructor example, but using class syntax
+class Song {
+    // constructor runs when we create a new song
+    constructor(title, artist, duration, genre) {
+        this.title = title;        // Song name
+        this.artist = artist;      // Artist name
+        this.duration = duration;  // Duration in minutes (e.g., "3:45")
+        this.genre = genre;        // Music genre (e.g., "Pop", "Rock")
+        this.isPlaying = false;    // Track if song is currently playing
+    }
+    
+    // Method to play the song
+    play() {
+        this.isPlaying = true;
+        console.log("🎵 Now playing: " + this.title + " by " + this.artist);
+    }
+    
+    // Method to pause the song
+    pause() {
+        this.isPlaying = false;
+        console.log("⏸️ Paused: " + this.title);
+    }
+    
+    // Method to display song information
+    getInfo() {
+        console.log("Song: " + this.title);
+        console.log("Artist: " + this.artist);
+        console.log("Duration: " + this.duration);
+        console.log("Genre: " + this.genre);
+    }
 }
 
-// These are prototype properties (shared by all cars)
-Car.prototype.wheels = 4;
-Car.prototype.fuelType = "gasoline";
+// CREATING SONGS USING THE SONG CLASS
+const song1 = new Song("Blinding Lights", "The Weeknd", "3:20", "Pop");
+const song2 = new Song("Shape of You", "Ed Sheeran", "3:53", "Pop");
 
-// These are prototype methods (shared by all cars)
-Car.prototype.start = function() {
-    this.isRunning = true;
-    console.log(this.brand + " " + this.model + " is now running!");
-};
+// USING THE SONG OBJECTS
+console.log("\n=== TESTING SONGS WITH CLASS ===");
+song1.getInfo();  // Display song information
+song1.play();     // Play the song
+song1.pause();    // Pause the song
 
-Car.prototype.stop = function() {
-    this.isRunning = false;
-    console.log(this.brand + " " + this.model + " has stopped.");
-};
+song2.play();     // Play another song
 
-Car.prototype.honk = function() {
-    console.log(this.brand + " goes BEEP BEEP!");
-};
+// EXPLANATION:
+// 1. Song Class: Same as constructor but cleaner syntax
+// 2. constructor() method sets up properties when creating new song
+// 3. Methods (play, pause, getInfo) are written without 'function' keyword
+// 4. We create songs using 'new Song()' - same as before
+// 5. Each song object is independent with its own data
+// 6. Classes are the modern, preferred way to create objects in JavaScript
 
-// Create car instances
-const toyota = new Car("Toyota", "Camry");
-const honda = new Car("Honda", "Civic");
+// DIFFERENCE BETWEEN CONSTRUCTOR AND CLASS:
+// Constructor Function: function Song() { this.title = title; }
+// Class: class Song { constructor() { this.title = title; } }
+// Both do the same thing, but classes are cleaner and easier to read
 
-// Each car has its own brand and model
-console.log(toyota.brand); // "Toyota"
-console.log(honda.brand); // "Honda"
 
-// But they share prototype properties and methods
-console.log(toyota.wheels); // 4 (from Car.prototype)
-console.log(honda.wheels); // 4 (from Car.prototype)
-console.log(toyota.wheels === honda.wheels); // true (same reference)
 
-toyota.start(); // "Toyota Camry is now running!"
-honda.honk(); // "Honda goes BEEP BEEP!"
 
-// 5. PROTOTYPE CHAINING - THE INHERITANCE CHAIN
-// Objects can inherit from other objects, creating a chain
-// Let's create a more specific type of car
-
-function ElectricCar(brand, model, batteryLife) {
-    // Call parent constructor
-    Car.call(this, brand, model);
-    this.batteryLife = batteryLife;
+// Simple Song class
+class Song {
+    constructor(title, artist) {
+        this.title = title;
+        this.artist = artist;
+    }
+    
+// play() is a method (function) inside the Song class
+// It's called when you want to play a song
+// When called, it prints a message showing which song is playing
+// The method uses 'this.title' to access the song's title property
+// Example: song1.play() will output "🎵 Playing: Blinding Lights"
+    play() {
+            console.log("🎵 Playing: " + this.title);
+    }
 }
 
-// Set up inheritance - ElectricCar inherits from Car
-ElectricCar.prototype = Object.create(Car.prototype);
-ElectricCar.prototype.constructor = ElectricCar;
-
-// Override parent method
-ElectricCar.prototype.start = function() {
-    this.isRunning = true;
-    console.log(this.brand + " " + this.model + " is silently running on electricity!");
-};
-
-// Add new methods specific to electric cars
-ElectricCar.prototype.charge = function() {
-    this.batteryLife = 100;
-    console.log(this.brand + " " + this.model + " is fully charged!");
-};
-
-// Override fuel type
-ElectricCar.prototype.fuelType = "electricity";
-
-const tesla = new ElectricCar("Tesla", "Model 3", 85);
-
-// Tesla inherits from both ElectricCar and Car prototypes
-console.log(tesla.brand); // "Tesla" (own property)
-console.log(tesla.wheels); // 4 (inherited from Car.prototype)
-console.log(tesla.fuelType); // "electricity" (from ElectricCar.prototype)
-tesla.start(); // "Tesla Model 3 is silently running on electricity!" (overridden method)
-tesla.charge(); // "Tesla Model 3 is fully charged!" (ElectricCar specific method)
-tesla.honk(); // "Tesla goes BEEP BEEP!" (inherited from Car.prototype)
-
-// 6. THE PROTOTYPE CHAIN VISUALIZATION
-// tesla.__proto__ → ElectricCar.prototype
-// ElectricCar.prototype.__proto__ → Car.prototype  
-// Car.prototype.__proto__ → Object.prototype
-// Object.prototype.__proto__ → null
-
-console.log(tesla.__proto__ === ElectricCar.prototype); // true
-console.log(ElectricCar.prototype.__proto__ === Car.prototype); // true
-console.log(Car.prototype.__proto__ === Object.prototype); // true
-console.log(Object.prototype.__proto__); // null (end of chain)
-
-// 7. HOW JAVASCRIPT LOOKS UP PROPERTIES (PROTOTYPE CHAIN LOOKUP)
-// When you access tesla.honk(), JavaScript searches:
-// 1. tesla object itself - not found
-// 2. tesla.__proto__ (ElectricCar.prototype) - not found  
-// 3. ElectricCar.prototype.__proto__ (Car.prototype) - FOUND! Uses this
-// 4. If not found, continues up the chain until null
-
-// 8. PRACTICAL EXAMPLE - ANIMAL HIERARCHY
-function Animal(name) {
-    this.name = name;
-    this.isAlive = true;
+// External function defined OUTSIDE the class
+// This function can work with any song object
+function displaySongInfo(song) {
+    console.log("Song: " + song.title);
+    console.log("Artist: " + song.artist);
 }
 
-Animal.prototype.eat = function() {
-    console.log(this.name + " is eating");
-};
+// Creating objects
+const song1 = new Song("Blinding Lights", "The Weeknd");
+const song2 = new Song("Shape of You", "Ed Sheeran");
 
-Animal.prototype.sleep = function() {
-    console.log(this.name + " is sleeping");
-};
+// Using class method
+song1.play();
 
-Animal.prototype.breathe = function() {
-    console.log(this.name + " is breathing");
-};
+// Using external function
+displaySongInfo(song1);
+displaySongInfo(song2);
 
-// Dog inherits from Animal
-function Dog(name, breed) {
-    Animal.call(this, name); // Call parent constructor
-    this.breed = breed;
+// VIEWING PROTOTYPES - Understanding how JavaScript objects work internally
+// Prototype is like a parent object that contains shared methods and properties
+// When you create a class, JavaScript automatically creates a prototype object
+// All instances (song1, song2) share the same prototype, which saves memory
+console.log("\n=== PROTOTYPE INFORMATION ===");
+console.log("Song.prototype:", Song.prototype);  // Shows the prototype object of Song class (contains play method)
+console.log("song1.__proto__:", song1.__proto__);  // Shows the prototype that song1 inherits from (same as Song.prototype)
+console.log("song1.__proto__ === Song.prototype:", song1.__proto__ === Song.prototype);  // Proves they are the same object
+
+// NOTES ABOUT PROTOTYPES:
+// 1. Every class/constructor has a 'prototype' property
+// 2. Every object has a '__proto__' property that points to its constructor's prototype
+// 3. Methods defined in a class are stored in the prototype, not in each object
+// 4. This means all song objects share the same play() method (memory efficient)
+// 5. Properties like 'title' and 'artist' are unique to each object (stored in the object itself)
+// 6. When you call song1.play(), JavaScript first looks in song1, then in song1.__proto__ (Song.prototype)
+// 7. This chain is called the "prototype chain" - it's how inheritance works in JavaScript
+
+
+
+
+
+
+
+
+// PROTOTYPE PROPERTY EXAMPLE - Adding Common Properties to All Objects
+// This example shows how to add a property that is shared by ALL student objects
+// Instead of adding the same property to each student individually, we add it once to the prototype
+// This saves memory and makes it easy to update the property for all students at once
+
+// YES! This is a form of PROTOTYPAL INHERITANCE in JavaScript
+// INHERITANCE means: Child objects (student1, student2, etc.) inherit properties from parent (Student.prototype)
+// When you access student1.company, JavaScript looks in student1 first, then inherits from Student.prototype
+// This is different from class inheritance (extends keyword) - this is PROTOTYPE-BASED INHERITANCE
+// All students "inherit" company and location from their shared prototype parent
+
+// Student class - blueprint for creating student objects
+class Student {
+    constructor(name, age, course) {
+        this.name = name;      // Each student has their own name
+        this.age = age;        // Each student has their own age
+        this.course = course;  // Each student has their own course
+    }
+    
+    // Method to display student info
+    study() {
+        console.log(this.name + " is studying " + this.course);
+    }
 }
 
-Dog.prototype = Object.create(Animal.prototype);
-Dog.prototype.constructor = Dog;
+// ADDING A COMMON PROPERTY TO PROTOTYPE
+// This property will be shared by ALL student objects
+// We don't need to add it to each student individually
+// INHERITANCE EXPLANATION: These properties are added to the "parent" (Student.prototype)
+// All student objects (children) will inherit these properties through the prototype chain
+// When you access student1.company, JS checks: 1) student1 object, 2) student1.__proto__ (Student.prototype)
+// This is called PROTOTYPAL INHERITANCE - objects inherit from their prototype
+Student.prototype.company = "Sheryians";  // All students belong to Sheryians company
+Student.prototype.location = "Bhopal";    // All students are in Bhopal location
 
-Dog.prototype.bark = function() {
-    console.log(this.name + " says WOOF!");
+// Creating 5 different students
+// Each has different name, age, and course
+const student1 = new Student("Rahul", 20, "Web Development");
+const student2 = new Student("Priya", 22, "Data Science");
+const student3 = new Student("Amit", 21, "UI/UX Design");
+const student4 = new Student("Sneha", 23, "Digital Marketing");
+const student5 = new Student("Arjun", 19, "Full Stack Development");
+
+// TESTING - Accessing properties
+// INHERITANCE IN ACTION: student1 doesn't have 'company' property directly
+// But it inherits 'company' from Student.prototype through the prototype chain
+// JavaScript automatically looks up the chain: student1 → student1.__proto__ (Student.prototype) → finds 'company'
+console.log(student1.name + " - " + student1.company + " - " + student1.location);
+console.log(student2.name + " - " + student2.company + " - " + student2.location);
+
+// PROOF - All students share the same prototype
+// This proves they all inherit from the same parent (Student.prototype)
+console.log("All share same prototype:", student1.__proto__ === student2.__proto__);  // true
+
+// WHY USE PROTOTYPE?
+// 1. MEMORY EFFICIENT: Instead of storing "Sheryians" in each of 5 students (5 copies),
+//    we store it once in the prototype (1 copy shared by all)
+// 2. EASY TO UPDATE: If company name changes, we update it once in prototype,
+//    and all students automatically get the new value
+// 3. COMMON PROPERTIES: Perfect for properties that are same for all objects
+// //    (like company name, location, version number, etc.)
+
+// // EXAMPLE OF UPDATING PROTOTYPE PROPERTY
+// Student.prototype.company = "Sheryians Coding School";  // Update once
+// console.log("Updated company:", student1.company);  // All students see the change
+
+// // KEY POINTS:
+// // - Properties in constructor (name, age, course) = Different for each student
+// // - Properties in prototype (company, location) = Same for all students
+// // - Prototype properties save memory and are easy to update
+// // - Use prototype for properties that should be common to all objects
+
+// INHERITANCE SUMMARY:
+// - PROTOTYPAL INHERITANCE: Objects inherit properties/methods from their prototype
+// - PROTOTYPE CHAIN: student1 → student1.__proto__ (Student.prototype) → Object.prototype → null
+// - When accessing a property, JS searches up the chain until it finds it or reaches null
+// - This is different from CLASS INHERITANCE (using 'extends' keyword) which creates parent-child class relationships
+// - Prototypal inheritance is the foundation of how JavaScript objects work
+// - Think of it as: Children (student objects) inherit traits from Parent (Student.prototype)
+
+
+
+
+
+
+
+
+// SIMPLE PAPA-BETA INHERITANCE EXAMPLE
+
+// Papa object - has properties
+const papa = {
+    name: "Rajesh",
+    money: 1000000,
+    car: "BMW"
 };
 
-Dog.prototype.wagTail = function() {
-    console.log(this.name + " is wagging tail happily!");
+// Beta object - initially empty, no properties
+const beta = {
+    age: 25
 };
 
-// Cat inherits from Animal
-function Cat(name, color) {
-    Animal.call(this, name);
-    this.color = color;
-}
+// INHERITANCE: Beta inherits from Papa using __proto__
+// Now beta can access papa's properties through prototype chain
+beta.__proto__ = papa;
 
-Cat.prototype = Object.create(Animal.prototype);
-Cat.prototype.constructor = Cat;
+// TESTING INHERITANCE
+console.log("Beta's age:", beta.age);           // Output: 25 (beta's own property)
+console.log("Beta's name:", beta.name);         // Output: Rajesh (inherited from papa)
+console.log("Beta's money:", beta.money);       // Output: 1000000 (inherited from papa)
+console.log("Beta's car:", beta.car);           // Output: BMW (inherited from papa)
 
-Cat.prototype.meow = function() {
-    console.log(this.name + " says MEOW!");
-};
+// WHAT'S HAPPENING:
+// 1. Papa has properties: name, money, car
+// 2. Beta only has age property
+// 3. When we do beta.__proto__ = papa, beta inherits all papa's properties
+// 4. When we access beta.name, JavaScript looks:
+//    - First in beta object (not found)
+//    - Then in beta.__proto__ (which is papa) - FOUND!
+// 5. Beta can use papa's properties without having them directly
+// 6. This is PROTOTYPAL INHERITANCE - beta inherits from papa through prototype chain
 
-Cat.prototype.purr = function() {
-    console.log(this.name + " is purring contentedly");
-};
+// PROOF
+console.log("\nProof of inheritance:");
+console.log("beta.__proto__ === papa:", beta.__proto__ === papa);  // true
 
-// Create instances
-const buddy = new Dog("Buddy", "Golden Retriever");
-const whiskers = new Cat("Whiskers", "orange");
 
-// All animals can eat, sleep, breathe (inherited from Animal)
-buddy.eat(); // "Buddy is eating"
-whiskers.sleep(); // "Whiskers is sleeping"
 
-// Dogs have specific behaviors
-buddy.bark(); // "Buddy says WOOF!"
-buddy.wagTail(); // "Buddy is wagging tail happily!"
+// CLASS INHERITANCE WITH 'extends' - SHORT NOTES
 
-// Cats have specific behaviors  
-whiskers.meow(); // "Whiskers says MEOW!"
-whiskers.purr(); // "Whiskers is purring contentedly"
+// WHAT IS INHERITANCE?
+// - Parent class has common features
+// - Child classes inherit parent features + add their own
+// - Use 'extends' keyword to inherit
+// - Use 'super()' to call parent constructor
 
-// 9. CHECKING THE PROTOTYPE CHAIN
-console.log(buddy instanceof Dog); // true
-console.log(buddy instanceof Animal); // true (through prototype chain)
-console.log(buddy instanceof Object); // true (everything inherits from Object)
+// EXAMPLE 1: ANIMAL INHERITANCE (SIMPLE)
 
-console.log(whiskers instanceof Cat); // true
-console.log(whiskers instanceof Animal); // true
-console.log(whiskers instanceof Dog); // false
-
-// 10. ADDING METHODS TO EXISTING PROTOTYPES
-// You can add methods to built-in prototypes (but be careful!)
-String.prototype.reverse = function() {
-    return this.split('').reverse().join('');
-};
-
-console.log("hello".reverse()); // "olleh"
-
-Array.prototype.last = function() {
-    return this[this.length - 1];
-};
-
-console.log([1, 2, 3, 4].last()); // 4
-
-// 11. PROTOTYPE VS __PROTO__ SUMMARY
-// prototype: Property of constructor functions, defines what instances will inherit
-// __proto__: Property of objects, points to the prototype they inherit from
-
-function Teacher(name) {
-    this.name = name;
-}
-
-Teacher.prototype.teach = function() {
-    console.log(this.name + " is teaching");
-};
-
-const mrSmith = new Teacher("Mr. Smith");
-
-console.log(Teacher.prototype); // The blueprint for all Teacher instances
-console.log(mrSmith.__proto__); // Points to Teacher.prototype
-console.log(Teacher.prototype === mrSmith.__proto__); // true
-
-// 12. REAL-WORLD EXAMPLE - SOCIAL MEDIA USERS
-function User(username, email) {
-    this.username = username;
-    this.email = email;
-    this.posts = [];
-    this.followers = [];
-}
-
-User.prototype.createPost = function(content) {
-    const post = {
-        content: content,
-        timestamp: new Date(),
-        likes: 0
-    };
-    this.posts.push(post);
-    console.log(this.username + " created a new post: " + content);
-};
-
-User.prototype.follow = function(otherUser) {
-    otherUser.followers.push(this);
-    console.log(this.username + " is now following " + otherUser.username);
-};
-
-User.prototype.getPostCount = function() {
-    return this.posts.length;
-};
-
-// Premium user inherits from regular user
-function PremiumUser(username, email, subscriptionType) {
-    User.call(this, username, email);
-    this.subscriptionType = subscriptionType;
-    this.canLiveStream = true;
-}
-
-PremiumUser.prototype = Object.create(User.prototype);
-PremiumUser.prototype.constructor = PremiumUser;
-
-PremiumUser.prototype.startLiveStream = function(title) {
-    console.log(this.username + " started live stream: " + title);
-};
-
-PremiumUser.prototype.createPost = function(content) {
-    // Override parent method with premium features
-    const post = {
-        content: content,
-        timestamp: new Date(),
-        likes: 0,
-        isPremium: true,
-        canPin: true
-    };
-    this.posts.push(post);
-    console.log("⭐ " + this.username + " (Premium) created: " + content);
-};
-
-// Create users
-const regularUser = new User("john_doe", "john@email.com");
-const premiumUser = new PremiumUser("sarah_premium", "sarah@email.com", "Gold");
-
-// Both can use basic user features
-regularUser.createPost("Hello world!"); // "john_doe created a new post: Hello world!"
-premiumUser.createPost("Premium content!"); // "⭐ sarah_premium (Premium) created: Premium content!"
-
-// Only premium user can live stream
-premiumUser.startLiveStream("Cooking Tutorial"); // "sarah_premium started live stream: Cooking Tutorial"
-
-// Both inherit from User prototype
-console.log(regularUser.getPostCount()); // 1
-console.log(premiumUser.getPostCount()); // 1
-
-// 13. COMMON MISTAKES AND HOW TO AVOID THEM
-
-// Mistake 1: Modifying prototype after creating instances affects all instances
-function Product(name) {
-    this.name = name;
-}
-
-const laptop = new Product("Laptop");
-const phone = new Product("Phone");
-
-// Adding method after instances are created - affects all instances
-Product.prototype.getInfo = function() {
-    return "Product: " + this.name;
-};
-
-console.log(laptop.getInfo()); // "Product: Laptop" - works!
-console.log(phone.getInfo()); // "Product: Phone" - works!
-
-// Mistake 2: Directly assigning to prototype breaks the chain
-function BadExample() {}
-BadExample.prototype = { // This breaks the constructor reference
-    method1: function() { console.log("method1"); }
-};
-
-// Better way:
-function GoodExample() {}
-GoodExample.prototype.method1 = function() { console.log("method1"); };
-// Or use Object.assign
-Object.assign(GoodExample.prototype, {
-    method2: function() { console.log("method2"); },
-    method3: function() { console.log("method3"); }
-});
-
-// 14. MODERN ALTERNATIVES - ES6 CLASSES (Still use prototypes under the hood!)
-class ModernAnimal {
-    constructor(name) {
+// PARENT CLASS
+class Animal {
+    constructor(name, age) {
         this.name = name;
+        this.age = age;
     }
     
     eat() {
         console.log(this.name + " is eating");
     }
-    
-    sleep() {
-        console.log(this.name + " is sleeping");
-    }
 }
 
-class ModernDog extends ModernAnimal {
-    constructor(name, breed) {
-        super(name); // Call parent constructor
-        this.breed = breed;
+// CHILD CLASS - inherits from Animal
+class Dog extends Animal {
+    constructor(name, age, breed) {
+        super(name, age);  // MUST call super() first - sets up parent properties
+        this.breed = breed;  // Dog's own property
     }
     
-    bark() {
-        console.log(this.name + " says WOOF!");
+    bark() {  // Dog's own method
+        console.log(this.name + " says Woof!");
     }
 }
 
-const modernDog = new ModernDog("Rex", "German Shepherd");
-modernDog.eat(); // "Rex is eating" (inherited)
-modernDog.bark(); // "Rex says WOOF!" (own method)
+// USAGE
+const dog1 = new Dog("Buddy", 3, "Golden Retriever");
+dog1.eat();   // Inherited from Animal
+dog1.bark();  // Dog's own method
 
-// Classes are just syntactic sugar over prototypes!
-console.log(ModernDog.prototype); // Still has prototype
-console.log(modernDog.__proto__ === ModernDog.prototype); // true
+// KEY POINTS:
+// 1. 'extends Animal' = Dog inherits everything from Animal
+// 2. 'super(name, age)' = Calls Animal constructor, MUST be first line
+// 3. Dog has: name, age (from Animal) + breed (own property)
+// 4. Dog has: eat() (from Animal) + bark() (own method)
 
-// SUMMARY - KEY POINTS TO REMEMBER:
-// 1. prototype = Blueprint attached to constructor functions
-// 2. __proto__ = Link that objects use to access their prototype
-// 3. Prototype chain = Series of __proto__ links for inheritance
-// 4. JavaScript looks up the prototype chain to find properties/methods
-// 5. You can create inheritance by linking prototypes
-// 6. ES6 classes are just a cleaner syntax for the same prototype system
-// 7. All objects ultimately inherit from Object.prototype
-// 8. The chain ends at null (Object.prototype.__proto__ === null)
 
-console.log("Prototypes are the foundation of JavaScript inheritance!");
 
 
+// EXAMPLE 2: SPOTIFY APP (PRACTICAL)
 
-
-// __PROTO__ VS PROTOTYPE AND INHERITANCE - Detailed Explanation
-
-// UNDERSTANDING THE DIFFERENCE BETWEEN __proto__ AND prototype
-
-// 1. WHAT IS 'prototype'?
-// - 'prototype' is a PROPERTY that exists ONLY on FUNCTIONS (constructor functions)
-// - It's an object that serves as a blueprint for instances created by that function
-// - When you create a function, JavaScript automatically creates a 'prototype' object for it
-
-function Vehicle(type) {
-    this.type = type;
-}
-
-console.log(Vehicle.prototype); // This is an object - the blueprint
-console.log(typeof Vehicle.prototype); // "object"
-
-// You can add properties and methods to the prototype
-Vehicle.prototype.wheels = 4;
-Vehicle.prototype.start = function() {
-    console.log(this.type + " is starting...");
-};
-
-// 2. WHAT IS '__proto__'?
-// - '__proto__' is a PROPERTY that exists on ALL OBJECTS (not functions)
-// - It's a reference/pointer to the prototype object that the instance inherits from
-// - It's the actual link used for inheritance
-
-const car = new Vehicle("Car");
-console.log(car.__proto__); // Points to Vehicle.prototype
-console.log(car.__proto__ === Vehicle.prototype); // true
-
-// 3. VISUAL REPRESENTATION
-// Constructor Function: Vehicle
-//     ↓ (has property)
-// Vehicle.prototype (object with methods/properties)
-//     ↑ (points to via __proto__)
-// Instance: car
-
-// 4. DETAILED COMPARISON WITH EXAMPLES
-
-// Example: Creating a Person constructor
-function Person(name, age) {
-    this.name = name;
-    this.age = age;
-}
-
-// Adding methods to Person.prototype (the blueprint)
-Person.prototype.species = "Homo sapiens";
-Person.prototype.greet = function() {
-    return "Hi, I'm " + this.name + " and I'm " + this.age + " years old";
-};
-
-Person.prototype.walk = function() {
-    return this.name + " is walking";
-};
-
-// Creating instances
-const alice = new Person("Alice", 25);
-const bob = new Person("Bob", 30);
-
-// PROTOTYPE (Function Property):
-console.log(Person.prototype); // The blueprint object
-console.log(Person.prototype.species); // "Homo sapiens"
-console.log(Person.prototype.greet); // function
-
-// __PROTO__ (Object Property):
-console.log(alice.__proto__); // Points to Person.prototype
-console.log(bob.__proto__); // Points to Person.prototype
-console.log(alice.__proto__ === Person.prototype); // true
-console.log(bob.__proto__ === Person.prototype); // true
-
-// Both instances share the same prototype
-console.log(alice.__proto__ === bob.__proto__); // true
-
-// 5. HOW INHERITANCE WORKS THROUGH __proto__
-
-// When you access a property on an object, JavaScript:
-// 1. Looks on the object itself
-// 2. If not found, looks at object.__proto__
-// 3. If not found, looks at object.__proto__.__proto__
-// 4. Continues until it reaches null
-
-console.log(alice.name); // "Alice" - found on alice object itself
-console.log(alice.species); // "Homo sapiens" - found on alice.__proto__ (Person.prototype)
-console.log(alice.greet()); // "Hi, I'm Alice and I'm 25 years old" - method from prototype
-
-// 6. CREATING INHERITANCE CHAIN WITH PROTOTYPES
-
-// Parent constructor
-function Animal(name) {
-    this.name = name;
-    this.isAlive = true;
-}
-
-Animal.prototype.eat = function() {
-    return this.name + " is eating";
-};
-
-Animal.prototype.sleep = function() {
-    return this.name + " is sleeping";
-};
-
-Animal.prototype.breathe = function() {
-    return this.name + " is breathing";
-};
-
-// Child constructor
-function Dog(name, breed) {
-    Animal.call(this, name); // Call parent constructor
-    this.breed = breed;
-}
-
-// SETTING UP INHERITANCE - This is the key part!
-// Make Dog.prototype inherit from Animal.prototype
-Dog.prototype = Object.create(Animal.prototype);
-Dog.prototype.constructor = Dog; // Fix constructor reference
-
-// Add Dog-specific methods
-Dog.prototype.bark = function() {
-    return this.name + " says WOOF!";
-};
-
-Dog.prototype.wagTail = function() {
-    return this.name + " is wagging tail";
-};
-
-// Create a dog instance
-const buddy = new Dog("Buddy", "Golden Retriever");
-
-// 7. THE INHERITANCE CHAIN VISUALIZATION
-// buddy (instance)
-//   ↓ __proto__
-// Dog.prototype
-//   ↓ __proto__  
-// Animal.prototype
-//   ↓ __proto__
-// Object.prototype
-//   ↓ __proto__
-// null
-
-console.log(buddy.__proto__ === Dog.prototype); // true
-console.log(Dog.prototype.__proto__ === Animal.prototype); // true
-console.log(Animal.prototype.__proto__ === Object.prototype); // true
-console.log(Object.prototype.__proto__); // null
-
-// 8. HOW PROPERTY LOOKUP WORKS IN THE CHAIN
-console.log(buddy.name); // "Buddy" - found on buddy itself
-console.log(buddy.breed); // "Golden Retriever" - found on buddy itself
-console.log(buddy.bark()); // "Buddy says WOOF!" - found on Dog.prototype
-console.log(buddy.eat()); // "Buddy is eating" - found on Animal.prototype
-console.log(buddy.toString()); // "[object Object]" - found on Object.prototype
-
-// 9. PRACTICAL EXAMPLE - COMPLETE INHERITANCE HIERARCHY
-
-// Base class
-function Shape(color) {
-    this.color = color;
-}
-
-Shape.prototype.getColor = function() {
-    return "This shape is " + this.color;
-};
-
-Shape.prototype.getArea = function() {
-    return "Area calculation not implemented";
-};
-
-// Rectangle inherits from Shape
-function Rectangle(color, width, height) {
-    Shape.call(this, color); // Call parent constructor
-    this.width = width;
-    this.height = height;
-}
-
-Rectangle.prototype = Object.create(Shape.prototype);
-Rectangle.prototype.constructor = Rectangle;
-
-Rectangle.prototype.getArea = function() {
-    return this.width * this.height;
-};
-
-Rectangle.prototype.getPerimeter = function() {
-    return 2 * (this.width + this.height);
-};
-
-// Square inherits from Rectangle
-function Square(color, side) {
-    Rectangle.call(this, color, side, side); // Call parent constructor
-}
-
-Square.prototype = Object.create(Rectangle.prototype);
-Square.prototype.constructor = Square;
-
-Square.prototype.getSide = function() {
-    return this.width; // width and height are the same for square
-};
-
-// Create instances
-const redRectangle = new Rectangle("red", 10, 5);
-const blueSquare = new Square("blue", 7);
-
-// Test inheritance
-console.log(redRectangle.getColor()); // "This shape is red" - from Shape
-console.log(redRectangle.getArea()); // 50 - from Rectangle
-console.log(redRectangle.getPerimeter()); // 30 - from Rectangle
-
-console.log(blueSquare.getColor()); // "This shape is blue" - from Shape
-console.log(blueSquare.getArea()); // 49 - from Rectangle
-console.log(blueSquare.getSide()); // 7 - from Square
-
-// 10. CHECKING INHERITANCE WITH instanceof
-console.log(blueSquare instanceof Square); // true
-console.log(blueSquare instanceof Rectangle); // true
-console.log(blueSquare instanceof Shape); // true
-console.log(blueSquare instanceof Object); // true
-
-// 11. MODIFYING PROTOTYPES AFFECTS ALL INSTANCES
-// Adding method to Animal prototype affects all animals
-Animal.prototype.makeSound = function() {
-    return this.name + " makes a sound";
-};
-
-console.log(buddy.makeSound()); // "Buddy makes a sound" - new method available!
-
-// 12. COMMON MISTAKES AND SOLUTIONS
-
-// MISTAKE 1: Assigning prototype directly (breaks inheritance)
-function BadParent() {}
-BadParent.prototype.method1 = function() { return "method1"; };
-
-function BadChild() {}
-// DON'T DO THIS - it breaks the prototype chain
-// BadChild.prototype = BadParent.prototype; // Both point to same object!
-
-// CORRECT WAY:
-function GoodParent() {}
-GoodParent.prototype.method1 = function() { return "method1"; };
-
-function GoodChild() {}
-GoodChild.prototype = Object.create(GoodParent.prototype); // Creates new object that inherits
-GoodChild.prototype.constructor = GoodChild;
-
-// MISTAKE 2: Forgetting to set constructor
-function Parent() {}
-function Child() {}
-Child.prototype = Object.create(Parent.prototype);
-// Child.prototype.constructor is now Parent - WRONG!
-
-// FIX:
-Child.prototype.constructor = Child; // Set it back to Child
-
-// 13. ALTERNATIVE INHERITANCE PATTERNS
-
-// Method 1: Object.setPrototypeOf (less performant)
-function ModernParent(name) {
-    this.name = name;
-}
-ModernParent.prototype.parentMethod = function() {
-    return "Parent method called by " + this.name;
-};
-
-function ModernChild(name, age) {
-    ModernParent.call(this, name);
-    this.age = age;
-}
-
-Object.setPrototypeOf(ModernChild.prototype, ModernParent.prototype);
-
-ModernChild.prototype.childMethod = function() {
-    return "Child method called by " + this.name;
-};
-
-const modernInstance = new ModernChild("Alex", 20);
-console.log(modernInstance.parentMethod()); // "Parent method called by Alex"
-console.log(modernInstance.childMethod()); // "Child method called by Alex"
-
-// 14. ES6 CLASSES (Still use prototypes under the hood!)
-class ES6Animal {
-    constructor(name) {
-        this.name = name;
+// PARENT CLASS - Common media features
+class Media {
+    constructor(title, creator, duration) {
+        this.title = title;
+        this.creator = creator;
+        this.duration = duration;
     }
     
-    eat() {
-        return this.name + " is eating";
+    play() {
+        console.log("▶️ Playing: " + this.title);
     }
 }
 
-class ES6Dog extends ES6Animal {
-    constructor(name, breed) {
-        super(name); // Calls parent constructor
-        this.breed = breed;
+// CHILD CLASS - Song with extra features
+class Song extends Media {
+    constructor(title, artist, duration, genre) {
+        super(title, artist, duration);  // Inherit title, creator, duration
+        this.genre = genre;  // Song's own property
     }
     
-    bark() {
-        return this.name + " says WOOF!";
+    addToPlaylist(playlistName) {  // Song's own method
+        console.log("✅ Added to " + playlistName);
     }
 }
 
-const modernDog = new ES6Dog("Max", "Labrador");
-
-// Even with classes, prototypes still exist!
-console.log(ES6Dog.prototype); // Still has prototype
-console.log(modernDog.__proto__ === ES6Dog.prototype); // true
-console.log(ES6Dog.prototype.__proto__ === ES6Animal.prototype); // true
-
-// 15. REAL-WORLD EXAMPLE - USER SYSTEM WITH INHERITANCE
-
-// Base User
-function User(username, email) {
-    this.username = username;
-    this.email = email;
-    this.createdAt = new Date();
-    this.isActive = true;
+// CHILD CLASS - Podcast with different features
+class Podcast extends Media {
+    constructor(title, host, duration, episode) {
+        super(title, host, duration);  // Inherit from Media
+        this.episode = episode;  // Podcast's own property
+    }
+    
+    download() {  // Podcast's own method
+        console.log("⬇️ Downloading episode " + this.episode);
+    }
 }
 
-User.prototype.login = function() {
-    return this.username + " logged in at " + new Date();
-};
+// USAGE
+const song1 = new Song("Blinding Lights", "The Weeknd", "3:20", "Pop");
+const podcast1 = new Podcast("JS Tutorial", "John", "45:00", 5);
 
-User.prototype.logout = function() {
-    return this.username + " logged out";
-};
+song1.play();  // Inherited from Media
+song1.addToPlaylist("Favorites");  // Song's own method
 
-User.prototype.getProfile = function() {
-    return {
-        username: this.username,
-        email: this.email,
-        createdAt: this.createdAt,
-        isActive: this.isActive
-    };
-};
+podcast1.play();  // Inherited from Media
+podcast1.download();  // Podcast's own method
 
-// Admin inherits from User
-function Admin(username, email, permissions) {
-    User.call(this, username, email); // Call parent constructor
-    this.permissions = permissions || [];
-    this.role = "admin";
+
+
+
+// EXAMPLE 3: USER SYSTEM (REAL-WORLD)
+
+// PARENT CLASS - Basic user
+class User {
+    constructor(username, email) {
+        this.username = username;
+        this.email = email;
+    }
+    
+    login() {
+        console.log(this.username + " logged in");
+    }
 }
 
-Admin.prototype = Object.create(User.prototype);
-Admin.prototype.constructor = Admin;
-
-Admin.prototype.deleteUser = function(targetUser) {
-    return this.username + " (admin) deleted user: " + targetUser;
-};
-
-Admin.prototype.banUser = function(targetUser) {
-    return this.username + " (admin) banned user: " + targetUser;
-};
-
-// Override parent method
-Admin.prototype.getProfile = function() {
-    const baseProfile = User.prototype.getProfile.call(this);
-    return Object.assign(baseProfile, {
-        role: this.role,
-        permissions: this.permissions
-    });
-};
-
-// Moderator inherits from User
-function Moderator(username, email, section) {
-    User.call(this, username, email);
-    this.section = section;
-    this.role = "moderator";
+// CHILD CLASS - Premium user with extra features
+class PremiumUser extends User {
+    constructor(username, email, subscriptionType) {
+        super(username, email);  // Inherit username, email
+        this.subscriptionType = subscriptionType;  // Own property
+        this.downloadLimit = 100;  // Own property
+    }
+    
+    downloadSong(songName) {  // Own method
+        this.downloadLimit--;
+        console.log("⬇️ Downloaded: " + songName);
+    }
 }
 
-Moderator.prototype = Object.create(User.prototype);
-Moderator.prototype.constructor = Moderator;
+// CHILD CLASS - Free user with limitations
+class FreeUser extends User {
+    constructor(username, email) {
+        super(username, email);  // Inherit username, email
+        this.downloadLimit = 0;  // Own property
+    }
+    
+    showAd() {  // Own method
+        console.log("📺 Showing ad...");
+    }
+}
 
-Moderator.prototype.moderatePost = function(postId) {
-    return this.username + " moderated post " + postId + " in " + this.section;
-};
+// USAGE
+const premium = new PremiumUser("john", "john@email.com", "Monthly");
+const free = new FreeUser("sarah", "sarah@email.com");
 
-Moderator.prototype.warnUser = function(targetUser) {
-    return this.username + " warned user: " + targetUser;
-};
+premium.login();  // Inherited from User
+premium.downloadSong("Song1");  // PremiumUser's own method
 
-// Create instances
-const regularUser = new User("john_doe", "john@email.com");
-const adminUser = new Admin("admin_sarah", "sarah@admin.com", ["delete", "ban", "edit"]);
-const modUser = new Moderator("mod_mike", "mike@mod.com", "gaming");
+free.login();  // Inherited from User
+free.showAd();  // FreeUser's own method
 
-// Test inheritance
-console.log(regularUser.login()); // "john_doe logged in at [timestamp]"
-console.log(adminUser.login()); // "admin_sarah logged in at [timestamp]" - inherited
-console.log(modUser.login()); // "mod_mike logged in at [timestamp]" - inherited
 
-console.log(adminUser.deleteUser("spammer")); // "admin_sarah (admin) deleted user: spammer"
-console.log(modUser.moderatePost("post123")); // "mod_mike moderated post post123 in gaming"
 
-// Check profiles
-console.log(regularUser.getProfile()); // Basic user profile
-console.log(adminUser.getProfile()); // Enhanced profile with role and permissions
 
-// SUMMARY - KEY DIFFERENCES:
-// 
-// PROTOTYPE:
-// - Property of constructor functions only
-// - Defines what instances will inherit
-// - The "blueprint" or "template"
-// - You add methods/properties here for sharing
-//
-// __PROTO__:
-// - Property of all objects
-// - Points to the prototype the object inherits from
-// - The actual "link" in the inheritance chain
-// - Used by JavaScript for property lookup
-//
-// INHERITANCE PROCESS:
-// 1. Create parent constructor and add methods to Parent.prototype
-// 2. Create child constructor and call parent constructor inside it
-// 3. Set Child.prototype = Object.create(Parent.prototype)
-// 4. Set Child.prototype.constructor = Child
-// 5. Add child-specific methods to Child.prototype
-// 6. Instances use __proto__ to access the prototype chain
+// IMPORTANT RULES:
+// 1. 'extends' = Creates parent-child relationship
+// 2. 'super()' = MUST be called first in child constructor
+// 3. Child gets ALL parent properties and methods
+// 4. Child can add its own properties and methods
+// 5. Avoids code duplication - write common code once in parent
 
-console.log("Understanding prototype vs __proto__ is key to mastering JavaScript inheritance!");
+// WHY USE INHERITANCE?
+// ✅ Code Reusability - Write once, use in multiple children
+// ✅ Easy Maintenance - Update parent, all children get update
+// ✅ Organized Code - Related classes grouped together
+// ✅ Real-world modeling - Represents real relationships (User → PremiumUser, FreeUser)
+
+
+
+
+// CLASSICAL INHERITANCE vs PROTOTYPAL INHERITANCE - EXPLANATION
+
+// YES! The 'extends' keyword creates CLASSICAL INHERITANCE (also called Class-based Inheritance)
+// This is different from the PROTOTYPAL INHERITANCE we saw earlier with __proto__
+
+// CLASSICAL INHERITANCE (Using 'extends' keyword):
+// - Uses class syntax with 'extends' keyword
+// - Creates a clear parent-child class relationship
+// - Child class inherits from parent class at CLASS LEVEL
+// - Uses 'super()' to call parent constructor
+// - More structured and organized
+// - Similar to languages like Java, C++, Python
+// - Example: class Dog extends Animal
+
+// PROTOTYPAL INHERITANCE (Using __proto__):
+// - Uses prototype chain directly
+// - Objects inherit from other objects at OBJECT LEVEL
+// - No classes involved, just objects
+// - Uses __proto__ or Object.create()
+// - More flexible but less structured
+// - Native to JavaScript
+// - Example: beta.__proto__ = papa
+
+// KEY DIFFERENCES:
+// 1. Classical = Class to Class inheritance (Dog extends Animal)
+//    Prototypal = Object to Object inheritance (beta.__proto__ = papa)
+// 2. Classical = Defined at creation time (when class is defined)
+//    Prototypal = Can be changed at runtime (anytime)
+// 3. Classical = More readable and maintainable
+//    Prototypal = More flexible and dynamic
+// 4. Classical = Modern JavaScript (ES6+)
+//    Prototypal = Original JavaScript way
+
+// BEHIND THE SCENES:
+// Even though we use 'class' and 'extends', JavaScript still uses prototypes internally!
+// 'class' is just syntactic sugar (easier syntax) over prototypal inheritance
+// When you write: class Dog extends Animal
+// JavaScript creates: Dog.prototype.__proto__ = Animal.prototype
+
+
+
+
+// SIMPLE EXAMPLE OF CLASSICAL INHERITANCE
+
+// PARENT CLASS - Vehicle
+class Vehicle {
+    constructor(brand, speed) {
+        this.brand = brand;
+        this.speed = speed;
+    }
+    
+    move() {
+        console.log(this.brand + " is moving at " + this.speed + " km/h");
+    }
+}
+
+// CHILD CLASS - Car inherits from Vehicle
+class Car extends Vehicle {
+    constructor(brand, speed, doors) {
+        super(brand, speed);  // Call parent constructor
+        this.doors = doors;   // Car's own property
+    }
+    
+    honk() {  // Car's own method
+        console.log(this.brand + " says Beep Beep! 🚗");
+    }
+}
+
+// CHILD CLASS - Bike inherits from Vehicle
+class Bike extends Vehicle {
+    constructor(brand, speed, type) {
+        super(brand, speed);  // Call parent constructor
+        this.type = type;     // Bike's own property
+    }
+    
+    ringBell() {  // Bike's own method
+        console.log(this.brand + " says Ring Ring! 🚲");
+    }
+}
+
+// USAGE
+const car1 = new Car("Toyota", 120, 4);
+const bike1 = new Bike("Hero", 60, "Mountain");
+
+car1.move();   // Inherited from Vehicle
+car1.honk();   // Car's own method
+
+bike1.move();  // Inherited from Vehicle
+bike1.ringBell();  // Bike's own method
+
+// EXPLANATION:
+// - Vehicle is PARENT class with common properties (brand, speed) and method (move)
+// - Car and Bike are CHILD classes that inherit from Vehicle
+// - Both Car and Bike get move() method automatically
+// - Each child adds its own unique properties and methods
+// - This is CLASSICAL INHERITANCE - clear parent-child relationship using 'extends'
+
+
+
