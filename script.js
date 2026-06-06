@@ -615,3 +615,155 @@ processOrder("ORD123");
 // Summary: Error handling helps your program deal with unexpected situations
 // gracefully instead of crashing. Use try...catch to catch errors, throw to
 // create custom errors, and finally for cleanup code that always runs.
+
+
+
+
+
+
+// Simple Promise Example - Student Grade Checker (Simplified Version)
+// This checks if a student passed or failed
+
+// Function to check student's grade
+function checkStudentGrade(studentName, marks) {
+    // Create and return a promise
+    return new Promise((resolve, reject) => {
+        
+        // Wait 2 seconds (simulating checking database)
+        setTimeout(() => {
+            
+            // Check 1: Is marks less than 0 or more than 100?
+            if (marks < 0 || marks > 100) {
+                reject("Marks must be between 0 and 100");
+            }
+            // Check 2: Is marks a number?
+            else if (typeof marks !== 'number') {
+                reject("Please enter a number");
+            }
+            // Check 3: Did student pass? (40 or more = pass)
+            else if (marks >= 40) {
+                resolve(`${studentName} PASSED with ${marks} marks! 🎉`);
+            }
+            // Student failed (less than 40)
+            else {
+                reject(`${studentName} FAILED with ${marks} marks`);
+            }
+            
+        }, 2000);
+    });
+}
+
+// How to use the function:
+console.log("Checking grade...");
+
+// Example 1: Student passes (75 marks)
+// OUTPUT: After 2 seconds:
+// ✅ Rahul PASSED with 75 marks! 🎉
+// Done!
+checkStudentGrade("Rahul", 75)
+    .then((message) => {
+        console.log("✅", message);
+    })
+    .catch((error) => {
+        console.log("❌", error);
+    })
+    .finally(() => {
+        console.log("Done!");
+    });
+
+// Fixed: Added setTimeout to prevent all promises from running simultaneously
+// This ensures each example runs after the previous one completes
+setTimeout(() => {
+    // Example 2: Student passes (85 marks)
+    // OUTPUT: After 2.5 seconds (then 2 more seconds = 4.5 seconds total):
+    // ✅ Priya PASSED with 85 marks! 🎉
+    checkStudentGrade("Priya", 85)
+        .then(msg => console.log("✅", msg))
+        .catch(err => console.log("❌", err));
+}, 2500);
+
+setTimeout(() => {
+    // Example 3: Student fails (30 marks)
+    // OUTPUT: After 5 seconds (then 2 more seconds = 7 seconds total):
+    // ❌ Amit FAILED with 30 marks
+    checkStudentGrade("Amit", 30)
+        .then(msg => console.log("✅", msg))
+        .catch(err => console.log("❌", err));
+}, 5000);
+
+setTimeout(() => {
+    // Example 4: Wrong marks (negative number)
+    // OUTPUT: After 7.5 seconds (then 2 more seconds = 9.5 seconds total):
+    // ❌ Marks must be between 0 and 100
+    checkStudentGrade("Sneha", -10)
+        .then(msg => console.log("✅", msg))
+        .catch(err => console.log("❌", err));
+}, 7500);
+
+setTimeout(() => {
+    // Example 5: Wrong marks (more than 100)
+    // OUTPUT: After 10 seconds (then 2 more seconds = 12 seconds total):
+    // ❌ Marks must be between 0 and 100
+    checkStudentGrade("Rohan", 150)
+        .then(msg => console.log("✅", msg))
+        .catch(err => console.log("❌", err));
+}, 10000);
+
+setTimeout(() => {
+    // Example 6: Wrong type (text instead of number)
+    // OUTPUT: After 12.5 seconds (then 2 more seconds = 14.5 seconds total):
+    // ❌ Please enter a number
+    checkStudentGrade("Kavya", "eighty")
+        .then(msg => console.log("✅", msg))
+        .catch(err => console.log("❌", err));
+}, 12500);
+
+// COMPLETE OUTPUT SEQUENCE (in order of execution):
+// 
+// Immediately:
+// Checking grade...
+//
+// After 2 seconds:
+// ✅ Rahul PASSED with 75 marks! 🎉
+// Done!
+//
+// After 4.5 seconds:
+// ✅ Priya PASSED with 85 marks! 🎉
+//
+// After 7 seconds:
+// ❌ Amit FAILED with 30 marks
+//
+// After 9.5 seconds:
+// ❌ Marks must be between 0 and 100
+//
+// After 12 seconds:
+// ❌ Marks must be between 0 and 100
+//
+// After 14.5 seconds:
+// ❌ Please enter a number
+
+// DIFFERENT OUTPUT SCENARIOS:
+//
+// Scenario 1 - PASS (marks >= 40 and <= 100):
+// Input: checkStudentGrade("Name", 75)
+// Output: ✅ Name PASSED with 75 marks! 🎉
+//
+// Scenario 2 - FAIL (marks < 40 but >= 0):
+// Input: checkStudentGrade("Name", 30)
+// Output: ❌ Name FAILED with 30 marks
+//
+// Scenario 3 - INVALID RANGE (marks < 0):
+// Input: checkStudentGrade("Name", -10)
+// Output: ❌ Marks must be between 0 and 100
+//
+// Scenario 4 - INVALID RANGE (marks > 100):
+// Input: checkStudentGrade("Name", 150)
+// Output: ❌ Marks must be between 0 and 100
+//
+// Scenario 5 - INVALID TYPE (not a number):
+// Input: checkStudentGrade("Name", "eighty")
+// Output: ❌ Please enter a number
+//
+// Scenario 6 - INVALID TYPE (null, undefined, object, array):
+// Input: checkStudentGrade("Name", null)
+// Output: ❌ Please enter a number
