@@ -1,21 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />          
-    <link rel="stylesheet" href="style.css">          
-  </head>
-  <body>
-  </body>
-    <main>
-      <div class="bulb"></div>
-      <button>on</button>
-    </main>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Enter Name">
 
+        <input type="email" id="email" placeholder="Enter Email">
+
+        <input type="text" id="image" placeholder="Enter Image URL">
+
+        <button type="submit">Add User</button>
+    </form>
+
+    <div id="users"></div>
+    
     <script src="script.js"></script>
-  </html>
+</body>
+</html>

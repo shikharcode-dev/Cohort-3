@@ -8,36 +8,51 @@ html,body{
     height: 100%;
     width: 100%;
 }
-body{
+body {
+    font-family: Arial;
+    padding: 20px;
     background-color: #111;
 }
 
-main{
-    height: 100%;
-    width: 100%;
+form {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+input,
+button {
+    padding: 10px;
+}
+
+#users {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
-
-.bulb{
-    height: 400px;
-    width: 400px;
-    border-radius: 50%;
-    border: 4px solid white;
-}
-button{
-    padding: 10px 30px;
-    color: black;
-    font-size: 30px;
-    border-radius: 20px;
-    border: none;
+.card {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
 }
 
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
-.lightup{
-    background-color: yellow;
+.card h3 {
+    margin: 10px 0 5px;
+    color: #ccc;
+}
+
+.card p {
+    color: #727070;
 }
