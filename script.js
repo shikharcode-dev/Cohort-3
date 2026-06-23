@@ -110,3 +110,12 @@
 // - Custom Hooks
 // - Context API for global state
 // - Controlled vs Uncontrolled components
+
+
+
+
+
+
+
+
+// i learn in from new file of script.j in react folder ok -->
